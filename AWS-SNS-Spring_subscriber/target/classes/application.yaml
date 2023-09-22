@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: consumer-for-sqs
+  datasource:
+    url: jdbc:postgresql://localhost:5432/consumer
+    username: ada-lovelace
+    password: cielo123
+  liquibase:
+    change-log: classpath:/db/changelog/changelog-master.yaml
+  jpa:
+    hibernate:
+      ddl-auto: update
+    generate-ddl: false
+    properties:
+      hibernate:
+        show_sql: true
+        hbm2ddl:
+          auto: update
+  sql:
+    init:
+      mode: always
+      continue-on-error: true
+
+server:
+  servlet:
+    context-path: /api/feedback
+
+aws:
+  sns:
+    default-group-id: 1
+    topic-arn:
+      elogios: arn:aws:sns:us-east-1:908737804402:elogios.fifo
+      sugestoes: arn:aws:sns:us-east-1:908737804402:sns-topic-critica.fifo
+      criticas: arn:aws:sns:us-east-1:908737804402:sugestoes.fifo
